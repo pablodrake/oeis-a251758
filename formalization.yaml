@@ -1,0 +1,113 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Lean 4 Proof of the First Occurrence of 8 in OEIS A251758"
+  description: >-
+    A self-contained Lean 4 proof of the open conjecture from OEIS A251758
+    (formalized as OeisA251758.conjecture in google-deepmind/formal-conjectures),
+    showing that X0 = p#12 / p#4 = 11 * 13 * 17 * 19 * 23 * 29 * 31 * 37 =
+    35,336,848,261 is the least integer x >= 2 for which a(x) = floor(x^2 / s(x)) = 8,
+    where s(x) is the sum of products of consecutive divisors of x in increasing order.
+    The proof uses divisor reversal (d |-> x / d), insertion monotonicity of the
+    reciprocal consecutive-product sum, a prime-replacement dominance map onto
+    {11, 13, 17, 19, 23, 29, 31}-smooth numbers, a finite rational Euler-product
+    upper bound (< 1/9), and an exact kernel-checked verification over all 256
+    divisors of X0.
+  authors:
+    - "Pablo Santana Torres"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Pablo Santana Torres"
+
+classification:
+  arxiv: ["math.NT"]
+  msc2020: ["11A25", "11N25"]
+
+sources:
+  - title: "OEIS A251758: Floor of n^2 divided by the sum of products of consecutive divisors of n"
+    contributors:
+      - name: "Robert G. Wilson v"
+        role: "problem-proposer"
+    id: "https://oeis.org/A251758"
+    type: "web post"
+    location: "https://oeis.org/A251758"
+    relationship: "background"
+    note: >-
+      Original question posed by Robert G. Wilson v on December 18, 2014 asking
+      whether p#12 / p#4 = 35336848261 is the least x >= 2 with a(x) = 8.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+  - title: "Computational verification report for OEIS A251758 (a(n) = 8)"
+    id: "https://github.com/the-omega-institute/trureturing/issues/12805#issuecomment-5976408068"
+    type: "web post"
+    location: "https://github.com/the-omega-institute/trureturing/issues/12805#issuecomment-5976408068"
+    relationship: "independently-proves"
+    note: >-
+      Earlier computational argument (Oct 4, 2026) reporting the same minimum
+      without a Lean formalization; this repository provides an independent,
+      machine-checked Lean 4 proof using prime replacement and a finite rational
+      Euler-product bound.
+    license: "unknown"
+    author_endorsement: "not-contacted"
+
+related_formalizations:
+  - id: "https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/OEIS/251758.lean"
+    relationship: "builds-on"
+    note: >-
+      Proves the open conjecture OeisA251758.conjecture stated in
+      google-deepmind/formal-conjectures (FormalConjectures/OEIS/251758.lean).
+
+status:
+  scope: >-
+    Proves the full theorem OeisA251758.conjecture with no weakened hypotheses
+    and no omitted cases.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["Gemini"]
+      framework: "Antigravity"
+      tool_setup: "AI-assisted proof design and Lean 4.36.0 formalization with Mathlib v4.36.0"
+      cost:
+        wall_time: "~1 hour"
+        spend_usd: "not tracked"
+        hardware: "local machine"
+      prompting_notes: "Autonomous search for a feasible open formal-conjectures problem followed by Lean 4 proof construction and verification."
+  spend_usd: "not tracked"
+  notes: "Proof devised and formalized in Lean 4 with AI assistance, then independently checked both in Lean 4.36.0 and via exact rational arithmetic outside Lean."
+
+fidelity:
+  divergences: >-
+    None known. Challenge.lean states OeisA251758.a and OeisA251758.conjecture
+    identically to FormalConjectures/OEIS/251758.lean, with OeisA251758.kthPrimorial
+    defined identically to FormalConjecturesForMathlib's Nat.kthPrimorial.
+
+review:
+  status: "self-assessed"
+  reviewers:
+    - "Pablo Santana Torres"
+  notes: >-
+    Statement audited against google-deepmind/formal-conjectures
+    (FormalConjectures/OEIS/251758.lean). Proof compiled cleanly with Lean 4.36.0
+    using only standard axioms [propext, Classical.choice, Quot.sound], and the
+    mathematical bounds and 256 divisors of X0 were independently recomputed
+    outside Lean using exact rational and integer arithmetic.
+
+alignment:
+  namespace: "OeisA251758"
+  statements:
+    - source: "OEIS A251758 / FormalConjectures/OEIS/251758.lean (conjecture)"
+      lean: "OeisA251758.conjecture"
+      module: "OeisA251758.Proof"
+      status: "proved"
+      note: "Exact match to the open conjecture in FormalConjectures/OEIS/251758.lean."
+
+acknowledgements: >-
+  Thanks to Robert G. Wilson v for posing the question on OEIS A251758, the
+  google-deepmind/formal-conjectures authors for the Lean statement, the Lean 4
+  and Mathlib communities, and the authors of the October 2026 computational
+  report on trureturing#12805.
