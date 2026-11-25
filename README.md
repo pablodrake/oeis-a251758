@@ -6,7 +6,9 @@ Machine-verified Lean 4.36.0 proof of `OeisA251758.conjecture` from [`google-dee
 
 For $n \ge 2$ with sorted divisors $1 = d_1 < d_2 < \dots < d_k = n$, let $s(n) = \sum_{i=1}^{k-1} d_i d_{i+1}$ and $a(n) = \lfloor n^2 / s(n) \rfloor$. Then
 
-$$X_0 = \frac{p\#_{12}}{p\#_4} = 11 \cdot 13 \cdot 17 \cdot 19 \cdot 23 \cdot 29 \cdot 31 \cdot 37 = 35{,}336{,}848{,}261$$
+```math
+X_0 = \frac{p\#_{12}}{p\#_4} = 11 \cdot 13 \cdot 17 \cdot 19 \cdot 23 \cdot 29 \cdot 31 \cdot 37 = 35{,}336{,}848{,}261
+```
 
 is the least integer $x \ge 2$ such that $a(x) = 8$.
 
@@ -14,7 +16,7 @@ is the least integer $x \ge 2$ such that $a(x) = 8$.
 
 1. **Divisor reversal:** Using the involution $d \mapsto x / d$, $s(x) = x^2 \cdot R(\mathrm{divList}(x))$ where $R([d_1, \dots, d_k]) = \sum_{i=1}^{k-1} \frac{1}{d_i d_{i+1}}$, so $a(x) = 8 \implies \frac{1}{9} < R(\mathrm{divList}(x)) \le \frac{1}{8}$.
 2. **Small prime factor exclusion:** By insertion monotonicity of $R$, if $x$ has a prime factor $p \le 7$, then $R(\mathrm{divList}(x)) \ge \frac{1}{p} \ge \frac{1}{7} > \frac{1}{8}$.
-3. **Smooth-number dominance & rational Euler-product bound:** Any $x < X_0$ with all prime factors $\ge 11$ has at most $7$ distinct prime factors. Replacing them in increasing order with $Q_7 = \{11, 13, 17, 19, 23, 29, 31\}$ can only increase $R$, and splitting $Q_7$-smooth numbers at $500$ with a finite geometric-series Euler product in $\mathbb{Q}$ yields $R(\mathrm{divList}(x)) < 0.11103 < \frac{1}{9}$.
+3. **Smooth-number dominance & rational Euler-product bound:** Any $x < X_0$ with all prime factors $\ge 11$ has at most $7$ distinct prime factors. Replacing them in increasing order with $Q_7 = \lbrace 11, 13, 17, 19, 23, 29, 31 \rbrace$ can only increase $R$, and splitting $Q_7$-smooth numbers at $500$ with a finite geometric-series Euler product in $\mathbb{Q}$ yields $R(\mathrm{divList}(x)) < 0.11103 < \frac{1}{9}$.
 4. **Exact check at $X_0$:** Kernel-checked verification over all $256$ sorted divisors of $X_0$ establishing $a(X_0) = 8$.
 
 ## Verification
