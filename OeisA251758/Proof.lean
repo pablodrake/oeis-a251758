@@ -1,12 +1,14 @@
+module
+
+public import Mathlib.Data.Nat.Prime.Nth
+public import Mathlib.NumberTheory.PrimeCounting
 import Mathlib.Data.Nat.Factorization.Basic
-import Mathlib.Data.Nat.Prime.Nth
 import Mathlib.Data.Nat.Prime.Basic
 import Mathlib.Data.Finset.Sort
 import Mathlib.Data.Fintype.BigOperators
 import Mathlib.Algebra.BigOperators.Field
 import Mathlib.Algebra.BigOperators.Fin
 import Mathlib.Algebra.Order.BigOperators.Group.Finset
-import Mathlib.NumberTheory.PrimeCounting
 import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.Positivity
 import Mathlib.Tactic.NormNum
@@ -26,6 +28,8 @@ $s(n) = \sum_{i=1}^{k-1} d_i d_{i+1}$. Define $a(n) = \lfloor n^2 / s(n) \rfloor
 $$X_0 = \frac{p\#_{12}}{p\#_4} = 11 \cdot 13 \cdot 17 \cdot 19 \cdot 23 \cdot 29 \cdot 31 \cdot 37 = 35336848261$$
 is the **least** integer $x \ge 2$ such that $a(x) = 8$.
 -/
+
+@[expose] public section
 
 namespace OeisA251758
 
@@ -874,7 +878,7 @@ private lemma numeric_upper_bound :
   norm_num [recipConsec, S7_500, Q7]
 
 /-- For ANY finite set `S` of `S7`-numbers, `recipConsec (S.sort (· ≤ ·)) < 1 / 9`. -/
-lemma recipConsec_S7_lt_one_ninth (S : Finset ℕ) (hS : ∀ d ∈ S, S7 d) :
+private lemma recipConsec_S7_lt_one_ninth (S : Finset ℕ) (hS : ∀ d ∈ S, S7 d) :
     recipConsec (S.sort (· ≤ ·)) < (1 : ℚ) / 9 := by
   let S_tail : Finset ℕ := S.filter (500 < ·)
   let S_big : Finset ℕ := S7_500.toFinset ∪ S_tail
@@ -984,7 +988,7 @@ private lemma prime_ge_11_list_bound (ps : List ℕ)
     have h6 := next_prime_ge 5 (by omega) 29 31 h5 (by decide)
     exact next_prime_ge 6 hi 31 37 h6 (by decide)
 
-lemma a_ne_8_of_lt_X0 {x : ℕ} (hx2 : 2 ≤ x) (hxlt : x < X0) : a x ≠ 8 := by
+private lemma a_ne_8_of_lt_X0 {x : ℕ} (hx2 : 2 ≤ x) (hxlt : x < X0) : a x ≠ 8 := by
   intro ha
   have ⟨hgt9, hle8⟩ := recipConsec_bounds_of_a_eq_8 hx2 ha
   by_cases hmin : x.minFac ≤ 7
@@ -1307,3 +1311,5 @@ theorem conjecture :
 #print axioms conjecture
 
 end OeisA251758
+
+end

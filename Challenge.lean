@@ -1,5 +1,7 @@
-import Mathlib.Data.Nat.Prime.Nth
-import Mathlib.NumberTheory.PrimeCounting
+module
+
+public import Mathlib.Data.Nat.Prime.Nth
+public import Mathlib.NumberTheory.PrimeCounting
 
 /-!
 # Advertised statement: OEIS A251758 (`conjecture`)
@@ -13,6 +15,8 @@ This file states `OeisA251758.conjecture` from `google-deepmind/formal-conjectur
 (Dec 18, 2014): $p\#_{12} / p\#_4 = 35{,}336{,}848{,}261$ is the least $x \ge 2$
 such that $a(x) = 8$.
 -/
+
+@[expose] public section
 
 namespace OeisA251758
 
@@ -41,3 +45,5 @@ theorem conjecture :
   sorry
 
 end OeisA251758
+
+end

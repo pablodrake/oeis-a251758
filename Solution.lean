@@ -1,4 +1,6 @@
-import OeisA251758
+module
+
+public import OeisA251758
 
 /-!
 # Proved solution: OEIS A251758 (`conjecture`)

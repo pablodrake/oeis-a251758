@@ -1,1 +1,3 @@
-import OeisA251758.Proof
+module
+
+public import OeisA251758.Proof
